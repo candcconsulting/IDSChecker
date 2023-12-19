@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ids xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://standards.buildingsmart.org/IDS">
+  <info>
+    <title>EN_Basic IDM Check</title>
+    <description>Example IDS for model validation according to the BIM Basic Information Delivery Manual (IDM)</description>
+    <author>nmontilla@kubusinfo.nl</author>
+    <date>2023-09-19</date>
+    <purpose>Specify a set of agreements that IFC models must meet according to the basic IDM.</purpose>
+  </info>
+  <specifications>
+    <specification name="(3.4) Current use of Entities" description="Run specification to get a list of all IfcBuildingElementProxy elements in your model. It is important to select the most suitable IFC Class for your elements and try to avoid using IfcBuildingElementProxy whenever possible." ifcVersion="IFC2X3" minOccurs="0">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDINGELEMENTPROXY</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>GLOBALID</simpleValue>
+          </name>
+          <value>
+            <simpleValue>?</simpleValue>
+          </value>
+        </attribute>
+      </requirements>
+    </specification>
+  </specifications>
+</ids>

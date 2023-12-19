@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ids xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://standards.buildingsmart.org/IDS">
+  <info>
+    <title>Piling Check</title>
+    <description>Piling Check</description>
+    <author>glen.worrall@bentley.com</author>
+    <date>2023-12-15</date>
+    <purpose>Specify the requirements for a PILE.</purpose>
+    <library>SCS</library>
+  </info>
+  <specifications>
+    <specification name="PILING CHECK" description="RunRun check against piling check" ifcVersion="IFC2X3" minOccurs="0">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCPile</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property>
+          <propertySet>
+            <simpleValue>classification</simpleValue>
+          </propertySet>
+          <name>
+            <simpleValue>Uniclass2015</simpleValue>
+          </name>
+          <value>
+            <simpleValue>Ss_20_05_65</simpleValue>
+          </value>
+        </property>
+        <property>
+          <propertySet>
+            <simpleValue>Pset_ConcreteElementGeneral</simpleValue>
+          </propertySet>
+          <name>
+            <simpleValue>StrengthClass</simpleValue>
+          </name>
+          <value>
+            <simpleValue>C35/45</simpleValue>
+          </value>
+        </property>
+        <property>
+          <propertySet>
+            <simpleValue>Pset_ConcreteElementGeneral</simpleValue>
+          </propertySet>
+          <name>
+            <simpleValue>ReinforcementVolumeRatio</simpleValue>
+          </name>
+          <value>
+              <xs:restriction base="xs:double">
+                  <xs:minInclusive value="160.0"/>
+              </xs:restriction>
+          </value>
+        </property>
+        <property>
+          <propertySet>
+            <simpleValue>classification</simpleValue>
+          </propertySet>
+          <name>
+            <simpleValue>PartDefinition</simpleValue>
+          </name>
+          <value>
+            <simpleValue>PilecapsConcreteInsitu</simpleValue>
+          </value>
+        </property>
+        <property datatype="IfcPositiveLengthMeasure" instructions="Pile Volume must be greater than 0." minOccurs="1" maxOccurs="1">
+          <propertySet>
+              <simpleValue>QTO_PileBaseQuantities</simpleValue>
+          </propertySet>
+          <name>
+              <simpleValue>Volume</simpleValue>
+          </name>
+          <value>
+              <xs:restriction base="xs:double">
+                  <xs:minExclusive value="0.0"/>
+              </xs:restriction>
+          </value>
+        </property>
+        <property>
+          <propertySet>
+            <simpleValue>Pset_ConstructionOccurence</simpleValue>
+          </propertySet>
+          <name>
+            <simpleValue>TagNumber</simpleValue>
+          </name>
+          <value>
+            <simpleValue>(HS2-\d{9}_PIL_\d{3,4})</simpleValue>
+          </value>
+        </property>
+        <property>
+          <propertySet>
+            <simpleValue>Pset_ConstructionOccurence</simpleValue>
+          </propertySet>
+          <name>
+            <simpleValue>AssetIdentifier</simpleValue>
+          </name>
+          <value>
+            <simpleValue>(HS2-\d{9})</simpleValue>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+  </specifications>
+</ids>

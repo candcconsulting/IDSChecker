@@ -1,0 +1,44 @@
+<InformationDeliverySpecification xmlns="http://www.buildingsmart-tech.org/ifc/IFC4/Add1/html/schema/ifcxml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.buildingsmart-tech.org/ifc/IFC4/Add1/html/schema/ifcxml.xsd">
+  <Documents>
+    <Document>
+      <Name>All Assets Information</Name>
+      <Description>Information about all assets</Description>
+      <Reference>
+        <DocumentRef>UAID</DocumentRef>
+        <DocumentRef>Classification Code</DocumentRef>
+        <!-- Add references for other attributes -->
+      </Reference>
+    </Document>
+  </Documents>
+  <ExchangeRequirements>
+    <ExchangeRequirement>
+      <ID>3.6</ID>
+      <Name>All Assets</Name>
+      <Description>Set of core information for all assets</Description>
+      <Constraints>
+        <Constraint>
+          <ID>3.6.1</ID>
+          <Name>Core Asset Information</Name>
+          <Definition>There is a set of core information with a requirement to be assigned to all assets.</Definition>
+          <Attributes>
+            <Attribute>
+              <Name>UAID</Name>
+              <AssetType>A</AssetType>
+              <UnitOfMeasureType>C</UnitOfMeasureType>
+              <ProjectStage>C</ProjectStage>
+              <Definition>Unique Asset ID</Definition>
+            </Attribute>
+            <Attribute>
+              <Name>Classification Code</Name>
+              <AssetType>A</AssetType>
+              <UnitOfMeasureType>M</UnitOfMeasureType>
+              <ProjectStage>C</ProjectStage>
+              <Definition>See table 1 for options of classification codes for Bridging Structures</Definition>
+            </Attribute>
+            <!-- Add attributes for other core information -->
+          </Attributes>
+        </Constraint>
+      </Constraints>
+    </ExchangeRequirement>
+  </ExchangeRequirements>
+</InformationDeliverySpecification>

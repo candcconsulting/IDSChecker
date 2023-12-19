@@ -1,0 +1,1 @@
+"select * from bis.ExternalSource es join bis.RepositoryLink rl on es.Repository.id = rl.ECInstanceId where es.codevalue is null"

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ids xmlns="http://standards.buildingsmart.org/IDS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.buildingsmart.org/IDS ids.xsd">   
+    <info>
+        <title>Bentley Systems IDS</title>
+        <copyright>Bentley Systems</copyright>
+        <version>1.0.0</version>
+        <description>Sample Specification to check attributes of doors</description>
+        <author>glen.worrall@bentley.com</author>
+        <date>2023-11-29</date>
+        <purpose>Contractual requirements</purpose>
+    </info>
+    <specifications>
+<specification name="Door height" ifcVersion="IFC4" description="Door height must be over 2.0m for building compliance checks." instructions="The architect is responsible for including this data." minOccurs="1" maxOccurs="unbounded">
+    <applicability>
+        <entity>
+            <name>
+                <simpleValue>IFCDOOR</simpleValue>
+            </name>
+        </entity>
+    </applicability>
+    <requirements>
+        <property datatype="IfcPositiveLengthMeasure" instructions="Door height is specified in meters. It must be over 2.0m for building compliance checks." minOccurs="1" maxOccurs="1">
+            <propertySet>
+                <simpleValue>DoorBaseQuantities</simpleValue>
+            </propertySet>
+            <name>
+                <simpleValue>Height</simpleValue>
+            </name>
+            <value>
+                <xs:restriction base="xs:double">
+                    <xs:minInclusive value="2.0"/>
+                </xs:restriction>
+            </value>
+        </property>
+    </requirements>
+</specification>    </specifications>
+</ids>

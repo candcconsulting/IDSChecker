@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ids xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://standards.buildingsmart.org/IDS">
+  <info>
+    <title>EN_Basic IDM Check</title>
+    <description>Example IDS for model validation according to the BIM Basic Information Delivery Manual (IDM)</description>
+    <author>nmontilla@kubusinfo.nl</author>
+    <date>2023-09-19</date>
+    <purpose>Specify a set of agreements that IFC models must meet according to the basic IDM.</purpose>
+  </info>
+  <specifications>
+    <specification name="(3.3) Construction level arrangement and naming" description="Check if each model employs a consistent naming convention for levels [ 1. Fill in the values based on the storey name structure of your project ]" ifcVersion="IFC2X3" minOccurs="0">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDINGSTOREY</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>NAME</simpleValue>
+          </name>
+          <value>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Level 1" />
+              <xs:enumeration value="Level 2" />
+              <xs:enumeration value="Level 3" />
+              <xs:enumeration value="Level 4" />
+              <xs:enumeration value="Level 5" />
+              <xs:enumeration value="Level 6" />
+              <xs:enumeration value="Level 7" />
+            </xs:restriction>
+          </value>
+        </attribute>
+      </requirements>
+    </specification>
+  </specifications>
+</ids>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ids xmlns="http://standards.buildingsmart.org/IDS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.buildingsmart.org/IDS ids.xsd">   
+    <info>
+        <title>Bentley Systems IDS</title>
+        <copyright>Bentley Systems</copyright>
+        <version>1.0.0</version>
+        <description>Sample Specification to properties of Load Bearing Walls</description>
+        <author>glen.worrall@bentley.com</author>
+        <date>2023-11-29</date>
+        <purpose>Contractual requirements</purpose>
+    </info>
+    <specifications>
+        <specification name="(4.7.2) Specific Materials" description="Specify which are the materials that selected elements should have. This example indicate a list of materials for load-bearing walls elements [ 1. Use the 'IFC Element' section to select the IFC class you would like to test. 2. Modify the values of 'Property set' and 'Property name' to filter the elements from the IFC class selected. 3. Under 'Values' indicate a list of the approved materials ]" ifcVersion="IFC2X3" minOccurs="0">
+        <applicability>
+            <entity>
+                <name>
+                    <simpleValue>IFCWALL</simpleValue>
+                </name>
+            </entity>
+            <property>
+                <propertySet>
+                    <simpleValue>Pset_WallCommon</simpleValue>
+                </propertySet>
+                <name>
+                    <simpleValue>LoadBearing</simpleValue>
+                </name>
+                <value>
+                    <simpleValue>True</simpleValue>
+                </value>
+            </property>
+        </applicability>
+        <requirements>
+            <material>
+            <value>
+                <xs:restriction base="xs:string">
+                <xs:enumeration value="Masonry - Concrete Block" />
+                <xs:enumeration value="Concrete - Cast-in-Place Concrete" />
+                <xs:enumeration value="Stone - limestone" />
+                <xs:enumeration value="Reinforced concrete - prefab" />
+                </xs:restriction>
+            </value>
+            </material>
+        </requirements>
+        </specification>
+    </specifications>
+</ids>
+
