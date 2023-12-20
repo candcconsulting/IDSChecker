@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ids xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://standards.buildingsmart.org/IDS">
   <info>
-    <title>BBV Piling Check</title>
-    <description>Piling Check</description>
+    <title>Slab Check</title>
+    <description>Slab Check</description>
     <author>glen.worrall@bentley.com</author>
     <date>2023-12-15</date>
-    <purpose>Specify the requirements for a PILE.</purpose>
-    <library>SCS</library>
+    <purpose>Specify the requirements for a SLAB.</purpose>
+    <library>ALJ</library>
   </info>
   <specifications>
-    <specification name="PILING CHECK" description="RunRun check against piling check" ifcVersion="IFC2X3" minOccurs="0">
+    <specification name="SLAB CHECK" description="Run check against slab information" ifcVersion="IFC2X3" minOccurs="0">
       <applicability>
         <entity>
           <name>
-            <simpleValue>IFCPile</simpleValue>
+            <simpleValue>IFCSlab</simpleValue>
           </name>
         </entity>
       </applicability>
@@ -23,10 +23,10 @@
             <simpleValue>classification</simpleValue>
           </propertySet>
           <name>
-            <simpleValue>Uniclass2015</simpleValue>
+            <simpleValue>Uniclass</simpleValue>
           </name>
           <value>
-            <simpleValue>Ss_20_05_65</simpleValue>
+            <simpleValue>Pr_20_31_16</simpleValue>
           </value>
         </property>
         <property>
@@ -37,7 +37,7 @@
             <simpleValue>StrengthClass</simpleValue>
           </name>
           <value>
-            <simpleValue>C35/45</simpleValue>
+            <simpleValue>C32/40</simpleValue>
           </value>
         </property>
         <property>
@@ -49,10 +49,11 @@
           </name>
           <value>
               <xs:restriction base="xs:double">
-                  <xs:minInclusive value="160.0"/>
+                  <xs:minInclusive value="10.0"/>
               </xs:restriction>
           </value>
         </property>
+<!--    need to find out where PartDefinition should be which pset    
         <property>
           <propertySet>
             <simpleValue>classification</simpleValue>
@@ -64,9 +65,10 @@
             <simpleValue>PilecapsConcreteInsitu</simpleValue>
           </value>
         </property>
-        <property datatype="IfcPositiveLengthMeasure" instructions="Pile Volume must be greater than 0." minOccurs="1" maxOccurs="1">
+        -->
+        <property datatype="IfcPositiveLengthMeasure" instructions="Slab Volume must be greater than 0." minOccurs="1" maxOccurs="1">
           <propertySet>
-              <simpleValue>QTO_PileBaseQuantities</simpleValue>
+              <simpleValue>QTO_SlabBaseQuantities</simpleValue>
           </propertySet>
           <name>
               <simpleValue>Volume</simpleValue>
@@ -85,7 +87,7 @@
             <simpleValue>TagNumber</simpleValue>
           </name>
           <value>
-            <simpleValue>(HS2-\d{9}_PIL_\d{3,4})</simpleValue>
+            <simpleValue>(HS2-\w{9})</simpleValue>
           </value>
         </property>
         <property>
@@ -96,7 +98,7 @@
             <simpleValue>AssetIdentifier</simpleValue>
           </name>
           <value>
-            <simpleValue>(HS2-\d{9})</simpleValue>
+            <simpleValue>(HS2-\w{9})</simpleValue>
           </value>
         </property>
       </requirements>

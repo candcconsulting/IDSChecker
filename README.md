@@ -1,6 +1,10 @@
-# Getting Started with the iTwin Viewer Create React App Template
+# iTwin IDS Checker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and shows to implement google search in an iTwin Viewer
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and shows how to implement an IDS check for iTwin
+
+Any existing IDS should be able to dragged into the File drop area, however, the real engine is in configuring the synonyms json to advise the checker how to map between IFC and any engineering models
+If a <library> entry is found in the <info> section then the synonyms for that section will be loaded, 
+ENHANCEMENT in theory this should load the sections from the synonyms.json to offer the library to use
 
 
 ## Environment Variables
@@ -42,14 +46,6 @@ IMJS_IMODEL_ID = ""
 - Alternatively, you can [generate a test iModel](https://developer.bentley.com/tutorials/web-application-quick-start/#4-create-an-imodel) to get started without an existing iModel.
 
 - If at any time you wish to change the iModel that you are viewing, you can change the values of the iTwinId or iModelId query parameters in the url (i.e. localhost:3000?iTwinId=myNewITwinId&iModelId=myNewIModelId)
-
-To use a google custom search engine you must create a [custom search engine](https://programmablesearchengine.google.com/controlpanel/create) and obtain a google api key
-```
-REACT_APP_GOOGLE_SEARCH_KEY=""
-REACT_APP_GOOGLE_CX=""
-```
-
-
 
 ## Available Scripts
 

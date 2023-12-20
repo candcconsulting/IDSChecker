@@ -7,6 +7,7 @@ import { synonym } from "../helperFunctions/synonyms";
   requirement > attribute > value > simplevalue when it is ? should find all values
   requirement > attribute > value > simplevalue when it is a value should find items that are NOT that  value
   and probably should be in the handleAttribute function
+2 : There is a limitation in that if the IFC uses the same Pset for two properties but the application uses different classes then we will not find the correct class
 */
 
 
@@ -21,11 +22,11 @@ function getNodeRestriction(node: Element): any | null {
   const restrictionType = node.firstElementChild;
   switch (restrictionType!.nodeName) {
     case 'xs:minExclusive': {
-      returnValue = '< ' + restrictionType!.attributes.getNamedItem('value')!.textContent;
+      returnValue = ' ifnull(<property>,0) < ' + restrictionType!.attributes.getNamedItem('value')!.textContent;
       break;
     }
     case 'xs:minInclusive': {
-      returnValue = '<= ' + restrictionType!.attributes.getNamedItem('value')!.textContent;
+      returnValue = ' ifnull(<property>,0) <= ' + restrictionType!.attributes.getNamedItem('value')!.textContent;
       break;
     }
     case 'xs:enumeration': {

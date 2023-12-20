@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ids xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://standards.buildingsmart.org/IDS">
   <info>
-    <title>BBV Piling Check</title>
+    <title>Piling Check</title>
     <description>Piling Check</description>
     <author>glen.worrall@bentley.com</author>
     <date>2023-12-15</date>
     <purpose>Specify the requirements for a PILE.</purpose>
-    <library>BBV</library>
+    <library>SCS</library>
   </info>
   <specifications>
     <specification name="PILING CHECK" description="RunRun check against piling check" ifcVersion="IFC2X3" minOccurs="0">

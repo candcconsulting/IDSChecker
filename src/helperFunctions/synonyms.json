@@ -16,6 +16,9 @@
     "IFCWALL" : ["ifcdynamic.ifcwall_bearing"],
     "IFCBUILDINGSTOREY" : ["IFCDynamic.IfcBuildingStorey"],
     "IFCBUILDINGELEMENTPROXY" : ["IFCDynamic.IfcBuildingElementProxy"],
+    "IFCSlab" : ["IFCDynamic.ifcslab"],
+    "classification" : ["IFCDynamic.ifcClassification"],
+    "Uniclass" : ["IFCUniclass"],
     "NAME" : ["IFCNAME"],
     "GLOBALID" : ["IFCGLOBALID"],
     "Pset_WallCommon" : ["ifcdynamic.ifcAspect_Pset_WallCommon"],
@@ -28,6 +31,7 @@
     "Volume" : ["StructuralQuantities__x002f____x0040__VolumeNetModeled"],
     "classification" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
     "Uniclass2015" : ["ObjectClassification__x002f____x0040__Uniclass2015"],
+    "Uniclass" : ["ObjectClassification__x002f____x0040__Uniclass2015"],
     "Pset_ConcreteElementGeneral" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
     "StrengthClass" : ["ReinforcedConcreteLOI__x002f____x0040__Concrete_Grade"],
     "ReinforcementVolumeRatio" : ["ReinforcedConcreteLOI__x002f____x0040__Reinforcement_Ratio"],
@@ -43,6 +47,7 @@
     "Volume" : ["StructuralQuantities__x002F____x0040__VolumeNetModeled"],
     "classification" : ["BuildingDataGroup.Concrete__x0020__Pile"],
     "Uniclass2015" : ["ObjectClassification__x002F____x0040__Uniclass2015"],
+    "Uniclass" : ["ObjectClassification__x002F____x0040__Uniclass2015"],
     "Pset_ConcreteElementGeneral" : ["BuildingDataGroup.Concrete__x0020__Pile"],
     "StrengthClass" : ["SCJ__x002D__Definitions__x002F____x0040__GRADE"],
     "ReinforcementVolumeRatio" : ["SCJ__x002D__Definitions__x002F____x0040__REINFORCEMENT_RATIO"],
@@ -50,5 +55,33 @@
     "Pset_ConstructionOccurence" : ["BuildingDataGroup.Concrete__x0020__Pile"],
     "AssetIdentifier" : ["SCJ__x002D__Definitions__x002F____x0040__PRIMARY_ASSET_UID"],
     "TagNumber" : ["SCJ__x002D__Definitions__x002F____x0040__ELEMENT_UID"]    
+  },
+  "ALJ_IFC" : {
+    "IFCSlab" : ["IFCDynamic.ifcslab"],
+    "QTO_SlabBaseQuantities" : ["IFCdynamic.ifcAspect_Qto_SlabBaseQuantities"],
+    "Volume" : ["ifcNetVolume"],
+    "classification" : ["ifcdynamic.ifcAspect_ObjectClassification"],
+    "Uniclass" : ["IFCUniclass"],
+    "Pset_ConcreteElementGeneral":  ["IFCDynamic.ifcAspect_HS2_Key_Fields"],
+    "StrengthClass" : ["ifc202_MaterialGrade"],
+    "ReinforcementVolumeRatio" : ["ifc400_RebarRatio"],
+    "Pset_ConstructionOccurence" : ["IFCDynamic.ifcAspect_HS2_Key_Fields"],
+    "AssetIdentifier" : ["ifc104_PrimaryAssetID"],
+    "TagNumber" : ["ifc105_UAID"]
+  },
+  "ALJ" : {
+    "IFCSlab" : ["bdg.structuralSlab"],
+    "QTO_SlabBaseQuantities" : ["bdg.structuralSlab"],
+    "Volume" : ["SlabQuantities__x002F____x0040__NetVolume"],
+    "classification" : ["bdg.structuralSlab"],
+    "Uniclass" : ["ObjectClassification__x002F____x0040__Uniclass"],
+    "Pset_ConcreteElementGeneral":  ["bdg.structuralSlab"],
+    "StrengthClass" : ["HS2_KeyFields__x002F____x0040__MaterialGrade"],
+    "ReinforcementVolumeRatio" : ["HS2_KeyFields__x002F____x0040__RebarRatio"],
+    "PartDefinition" : ["ObjectMaterial__x002F____x0040__PartDefinition"],
+    "Pset_ConstructionOccurence" : ["bdg.structuralSlab"],
+    "AssetIdentifier" : ["HS2_KeyFields__x002F____x0040__PrimaryAssetID"],
+    "TagNumber" : ["HS2_KeyFields__x002F____x0040__UAID"]
+
   }
 }
