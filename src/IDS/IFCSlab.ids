@@ -6,7 +6,7 @@
     <author>glen.worrall@bentley.com</author>
     <date>2023-12-15</date>
     <purpose>Specify the requirements for a SLAB.</purpose>
-    <library>ALJ</library>
+    <library>BBV</library>
   </info>
   <specifications>
     <specification name="SLAB CHECK" description="Run check against slab information" ifcVersion="IFC2X3" minOccurs="0">

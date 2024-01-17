@@ -6,7 +6,7 @@
     <author>glen.worrall@bentley.com</author>
     <date>2023-12-15</date>
     <purpose>Specify the requirements for a PILE.</purpose>
-    <library>SCS</library>
+    <library>BBV</library>
   </info>
   <specifications>
     <specification name="PILING CHECK" description="RunRun check against piling check" ifcVersion="IFC2X3" minOccurs="0">

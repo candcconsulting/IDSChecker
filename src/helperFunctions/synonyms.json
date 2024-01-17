@@ -27,23 +27,40 @@
   "BBV" : 
   {
     "IFCPile" : ["HS2.PIL"], 
+    "IFCSlab" : ["HS2.SLB"],
     "QTO_PileBaseQuantities" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
     "Volume" : ["StructuralQuantities__x002f____x0040__VolumeNetModeled"],
-    "classification" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
+    "classification" : 
+    {
+      "default" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
+      "IFCPile" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
+      "IFCSlab" : ["BuildingDataGroup.Concrete__x0020__SlabElementAspect"]
+    },
     "Uniclass2015" : ["ObjectClassification__x002f____x0040__Uniclass2015"],
     "Uniclass" : ["ObjectClassification__x002f____x0040__Uniclass2015"],
-    "Pset_ConcreteElementGeneral" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
+    "Pset_ConcreteElementGeneral" : 
+    {
+      "default" : ["BuildingDataGroup.Concrete__x0020__ElementAspect"],
+      "IFCPile" : ["BuildingDataGroup.Concrete__x0020__PileElementAspect"],
+      "IFCSlab" : ["BuildingDataGroup.Concrete__x0020__SlabElementAspect"]
+    },
     "StrengthClass" : ["ReinforcedConcreteLOI__x002f____x0040__Concrete_Grade"],
     "ReinforcementVolumeRatio" : ["ReinforcedConcreteLOI__x002f____x0040__Reinforcement_Ratio"],
     "PartDefinition" : ["ObjectMaterial__x002f____x0040__PartDefinition"],
     "GLOBALID" : ["FederationGUID"],
-    "Pset_ConstructionOccurence" : ["HS2.PIL"],
+    "Pset_ConstructionOccurence" : {
+      "default" : ["HS2.PIL"],
+      "IFCPile" : ["HS2.PIL"],
+      "IFCSlab" : ["HS2.SLB"]
+    },
     "TagNumber" : ["WBS_Code"],
     "AssetIdentifier" : ["UAID"]
   },
   "SCS" : {
     "IFCPile" : ["BuildingDataGroup.Concrete__x0020__Pile"], 
+    "IFCSlab" : ["BuildingDataGroup.Concrete__x0020__Slab"],
     "QTO_PileBaseQuantities" : ["BuildingDataGroup.Concrete__x0020__Pile"],
+    "QTO_SlabBaseQuantities" : ["bdg.Concrete__x0020__Slab"],
     "Volume" : ["StructuralQuantities__x002F____x0040__VolumeNetModeled"],
     "classification" : ["BuildingDataGroup.Concrete__x0020__Pile"],
     "Uniclass2015" : ["ObjectClassification__x002F____x0040__Uniclass2015"],
@@ -62,7 +79,9 @@
     "Volume" : ["ifcNetVolume"],
     "classification" : ["ifcdynamic.ifcAspect_ObjectClassification"],
     "Uniclass" : ["IFCUniclass"],
-    "Pset_ConcreteElementGeneral":  ["IFCDynamic.ifcAspect_HS2_Key_Fields"],
+    "Pset_ConcreteElementGeneral": {
+      "default" :  ["IFCDynamic.ifcAspect_HS2_Key_Fields"]
+    },
     "StrengthClass" : ["ifc202_MaterialGrade"],
     "ReinforcementVolumeRatio" : ["ifc400_RebarRatio"],
     "Pset_ConstructionOccurence" : ["IFCDynamic.ifcAspect_HS2_Key_Fields"],

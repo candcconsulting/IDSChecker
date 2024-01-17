@@ -181,14 +181,16 @@ export const convertXmlToEcSQL = (xmlDoc: string): string => {
     let setLinkProperty = 'ecInstanceid';
     let linkProperty = 'ecInstanceId';
     let whereClause = '';
+    let nameClassEntity = 'default';
     if (classEntity) {
-      classSearch = synonym(getNodeValue(classEntity.querySelector('name')),library).join('');
+      nameClassEntity = getNodeValue(classEntity.querySelector('name'));
+      classSearch = synonym(getNodeValue(classEntity.querySelector('name')),library, nameClassEntity).join('');
       if (classSearch.includes('Aspect'))
         linkProperty = 'element.id';
     }
     let propertySetSearch = '';
     if (propertySet) {
-      propertySetSearch = synonym(getNodeValue(propertySet),library).join("");
+      propertySetSearch = synonym(getNodeValue(propertySet),library, nameClassEntity).join('');
       if (propertySetSearch.includes('Aspect')) {
         setLinkProperty = 'element.id';
       }
@@ -196,14 +198,14 @@ export const convertXmlToEcSQL = (xmlDoc: string): string => {
     let propertySearch : any;
     if (property) {
       propertySearch = handleProperty(property);
-      whereClause = `WHERE ${synonym(getNodeValue(propertySearch.sqlProperty),library).join('')} = ${propertySearch.sqlValue}`
+      whereClause = `WHERE ${synonym(getNodeValue(propertySearch.sqlProperty),library, nameClassEntity).join('')} = ${propertySearch.sqlValue}`
 
     }
 
     let joinSQL = '';
     if (propertySetSearch !== '')
       joinSQL = `join ${propertySetSearch} b on b.${setLinkProperty} = a.${linkProperty} `;
-    applicabilitySearch = `SELECT ecInstanceId as id from ${synonym(classSearch,library).join('')} ${joinSQL} a ${whereClause}`;
+    applicabilitySearch = `SELECT ecInstanceId as id from ${synonym(classSearch,library, nameClassEntity).join('')} ${joinSQL} a ${whereClause}`;
     console.log(`Applicability Search = ${applicabilitySearch}`);
     const requirements = specification.querySelector('requirements');
     requirements.childNodes.forEach((requirement : any) => {
@@ -219,22 +221,22 @@ export const convertXmlToEcSQL = (xmlDoc: string): string => {
         {
           checkValue = handleProperty(requirement, requirement = true); 
           if (checkValue) {
-            console.log(`checking for property ${synonym(checkValue.sqlClass,library).join(' ')}`)
-            const fromClass = synonym(checkValue.sqlClass,library).join(' ');
+            console.log(`checking for property ${synonym(checkValue.sqlClass,library, nameClassEntity).join('')}`)
+            const fromClass = synonym(checkValue.sqlClass,library, nameClassEntity).join('');
             let id = 'ecInstanceId'
             if (fromClass.includes('Aspect')) {
               id = 'element.id'
             }
             let whereClause = ''
             if (checkValue.valueCheck.includes('<property>'))  {
-              checkValue.valueCheck = checkValue.valueCheck.replace('<property>',synonym(checkValue.sqlProperty,library).join(''));
+              checkValue.valueCheck = checkValue.valueCheck.replace('<property>',synonym(checkValue.sqlProperty,library, nameClassEntity).join(''));
               whereClause = ` WHERE ${checkValue.valueCheck}`;
             }
             else {
               whereClause = ` WHERE ${synonym(checkValue.sqlProperty,library).join(" ")} ${checkValue.valueCheck}`
             }
 
-            ecSQL = `SELECT '${checkValue.sqlClass}' as entity, ${id} as id, '${checkValue.sqlProperty}' as Property, ${synonym(checkValue.sqlProperty,library).join(" ")} as PropertyValue  from ${synonym(checkValue.sqlClass,library).join(" ")} ${whereClause}`
+            ecSQL = `SELECT '${checkValue.sqlClass}' as entity, ${id} as id, '${checkValue.sqlProperty}' as Property, ${synonym(checkValue.sqlProperty,library).join(" ")} as PropertyValue  from ${synonym(checkValue.sqlClass,library, nameClassEntity).join('')} ${whereClause}`
           }
           break;
         }
@@ -243,8 +245,8 @@ export const convertXmlToEcSQL = (xmlDoc: string): string => {
           checkValue = handleMaterial(requirement); 
           console.log(checkValue);
           if (checkValue) {
-            console.log(`checking for material ${synonym(checkValue.sqlClass,library).join(' ')}`)
-            const fromClass = synonym(checkValue.sqlClass,library).join(' ');
+            console.log(`checking for material ${synonym(checkValue.sqlClass,library, nameClassEntity).join('')}`)
+            const fromClass = synonym(checkValue.sqlClass,library, nameClassEntity).join('');
             let id = 'ecInstanceId'
             if (fromClass.includes('Aspect')) {
               id = 'element.id'
@@ -258,16 +260,16 @@ export const convertXmlToEcSQL = (xmlDoc: string): string => {
           checkValue = handleAttribute(requirement, classSearch, true); 
           console.log(checkValue);
           if (checkValue) {
-            console.log(`Checking for attribute ${synonym(checkValue.sqlClass,library).join(' ')}`)
+            console.log(`Checking for attribute ${synonym(checkValue.sqlClass,library, nameClassEntity).join('')}`)
             const fromClass = synonym(checkValue.sqlClass, library).join(' ');
             let id = 'ecInstanceId'
             if (fromClass.indexOf('Aspect') > -1) {
               id = 'element.id'
             }
-            let whereClause = `${synonym(checkValue.sqlProperty, library).join(" ")} ${checkValue.valueCheck}`
+            let whereClause = `${synonym(checkValue.sqlProperty, library, nameClassEntity).join('')} ${checkValue.valueCheck}`
             if (checkValue.valueCheck === '?')
-              whereClause = `${synonym(checkValue.sqlProperty, library).join(" ")} like '%'`;              
-            ecSQL = `SELECT '${checkValue.sqlClass}' as entity, ${id} as id, '${checkValue.sqlProperty}' as Property, ${synonym(checkValue.sqlProperty, library).join(" ")} as PropertyValue  from ${synonym(checkValue.sqlClass, library).join(" ")} WHERE ${whereClause}`
+              whereClause = `${synonym(checkValue.sqlProperty, library, nameClassEntity).join('')} like '%'`;              
+            ecSQL = `SELECT '${checkValue.sqlClass}' as entity, ${id} as id, '${checkValue.sqlProperty}' as Property, ${synonym(checkValue.sqlProperty, library, nameClassEntity).join('')} as PropertyValue  from ${synonym(checkValue.sqlClass, library, nameClassEntity).join('')} WHERE ${whereClause}`
           }
           break;
         }
@@ -292,134 +294,5 @@ export const convertXmlToEcSQL = (xmlDoc: string): string => {
 
 }
 
-
-export const oldconvertXmlToEcSQL = (xmlDoc: string): string => {
-  // Extract relevant information from XML
-  // const idsXML = require(GLOBALIDSPATH + xmlFile);
-  const parser = new DOMParser();
-  let requirements: any;
-  let classes: any;
-  const xmlParsed = parser.parseFromString(xmlDoc, 'text/xml');
-  let library = "";
-  try {
-  requirements = xmlParsed.querySelectorAll('requirements');
-  classes = xmlParsed.querySelectorAll('applicability > entity');  
-  } catch (error) {
-    console.log('There was an error locating the <requirements> and <applicability> section, ensure your IDS file is well structured')
-    return '';
-  }
-  try {
-    library = xmlParsed.querySelector('info > library')?.textContent ?? "";
-  } catch (error) {
-    // allowed error ... no library
-  }
-    // Generate ecSQL statement
-  let returnecSQL = '';
-  
-  classes.forEach((classElement : any) => {
-    const searchClass = classElement.querySelector('name');
-    // we are lazy here ... we convert all synonyms because we know that the synonym json only has a single entry
-    const searchClassValue = synonym(getNodeValue(searchClass) || '', library).join(" ");
-    console.log(`searchClassValue = ${searchClassValue}`)
-    // the reality is that we are not checking the entity ... but we want the property set ... could be that we have to join against the entity ...
-    // ... <propertyset> will determine the class to join against (probably an aspect)
-    // the property name will determine the property to check
-    // the value will determine the value to check
-    // not sure why but nextElementSibling is property and we cannot query that for that ...
-    let searchAspect = '';
-    let searchProperty = '';
-    let searchPropertyValue = '';
-    try {
-      searchAspect = synonym(getNodeValue(classElement.nextElementSibling.querySelector('propertySet')) || '', library).join(" "); 
-    } catch (error) {
-      console.log('skipping searchAspect')      
-    }
-    try {
-      searchProperty = synonym(getNodeValue(classElement.nextElementSibling.querySelector('name')) || '', library).join(" "); 
-    } catch (error) {
-      console.log('skipping searchProperty')      
-    }
-    try {
-      searchPropertyValue = synonym(getNodeValue(classElement.nextElementSibling.querySelector('value')) || '', library).join(" ");
-    } catch (error) {
-      console.log('skipping searchPropertyValue')      
-    }
-    const searchCriteria = searchProperty + ' = ' + searchPropertyValue;
-
-    requirements.forEach((requirement : any, index : number) => {
-      requirement.childNodes.forEach((child : any) => {
-        // OK property should define the WHERE clause ... looks like
-        // then attribute is a requirement check
-        // so select everthing where ecinstanceid in (select ecinstanceid from the property criteria)
-        let ecSQL = '';
-        let checkValue = undefined;
-        switch (child.nodeName) {
-          case ('property') :
-          {
-            checkValue = handleProperty(child, true); 
-            console.log(checkValue);
-            if (checkValue) {
-              console.log(`checking for property ${synonym(checkValue.sqlClass, library).join(' ')}`)
-              const fromClass = synonym(checkValue.sqlClass, library).join(' ');
-              let id = 'ecInstanceId'
-              if (fromClass.indexOf('Aspect') > -1) {
-                id = 'element.id'
-              }
-              ecSQL = `SELECT '${getNodeValue(searchClass)}' as entity, ${id} as id, '${checkValue.sqlProperty}' as Property, ${synonym(checkValue.sqlProperty, library).join(" ")} as PropertyValue  from ${synonym(checkValue.sqlClass, library).join(" ")} WHERE ${synonym(checkValue.sqlProperty, library).join(" ")} ${checkValue.valueCheck}`
-            }
-            break;
-          }
-          case ('material') :
-          {
-            checkValue = handleMaterial(child); 
-            console.log(checkValue);
-            if (checkValue) {
-              console.log(`checking for material ${synonym(checkValue.sqlClass, library).join(' ')}`)
-              const fromClass = synonym(checkValue.sqlClass, library).join(' ');
-              let id = 'ecInstanceId'
-              if (fromClass.indexOf('Aspect') > -1) {
-                id = 'element.id'
-              }
-              ecSQL = `SELECT ec_classname(pe.ecClassid) as entity, pe.ecInstanceId as id, 'Material' as Property, pm.userLabel as PropertyValue  from ${synonym(searchAspect, library).join(" ")} a join bis.physicalelement pe on a.element.id = pe.ecinstanceid join bis.physicalMaterial pm on pe.physicalmaterial.id = pm.ecinstanceid WHERE ${synonym(checkValue.sqlProperty, library).join(" ")} ${checkValue.valueCheck} and ${searchProperty} Like ${searchPropertyValue}`
-            }
-            break;
-          }
-          case ('attribute') :
-          {
-            checkValue = handleAttribute(child, searchClass); 
-            console.log(checkValue);
-            if (checkValue) {
-              console.log(`Checking for attribute ${synonym(checkValue.sqlClass, library).join(' ')}`)
-              const fromClass = synonym(checkValue.sqlClass, library).join(' ');
-              let id = 'ecInstanceId'
-              if (fromClass.indexOf('Aspect') > -1) {
-                id = 'element.id'
-              }
-              let whereClause = `${synonym(checkValue.sqlProperty, library).join(" ")} ${checkValue.valueCheck}`
-              if (checkValue.valueCheck === '?')
-                whereClause = `${synonym(checkValue.sqlProperty, library).join(" ")} like '%'`;              
-              ecSQL = `SELECT '${getNodeValue(searchClass)}' as entity, ${id} as id, '${checkValue.sqlProperty}' as Property, ${synonym(checkValue.sqlProperty, library).join(" ")} as PropertyValue  from ${synonym(getNodeValue(searchClass), library).join(" ")} WHERE ${whereClause}`
-            }
-            break;
-          }
-          default : {
-            console.log('unsupported ' + child.nodeName)
-            break;
-          }
-        }
-        if (ecSQL !== '') {
-          if (returnecSQL !== '') {
-            returnecSQL = returnecSQL + ' UNION ' + ecSQL;                
-          }
-          else {
-            returnecSQL = ecSQL;                
-          }
-        }
-      });
-    });
-  });
-  return returnecSQL;
-
-}
 
 export default convertXmlToEcSQL;
